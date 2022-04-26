@@ -24,8 +24,8 @@ const About = () => {
       backgroundAttachment: "fixed",
       height: "100vh",
     }}> 
-      <div style={{display: 'flex', flexDirection: 'column',alignItems: 'center',justifyContent: 'center',height:"80vh"}}>
-      <Card sx={{ width: 345,height:"60vh"}}>
+      <div style={{display: 'flex', flexDirection: 'column',alignItems: 'center',justifyContent: 'center',height:"90vh"}}>
+      <Card sx={{ width: 345,height:"80vh"}}>
       <CardActionArea>
         <img src={Anthony} width="45%" height="35%" alt="anthony" />
         <CardContent>
