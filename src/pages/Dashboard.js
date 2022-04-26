@@ -40,7 +40,7 @@ const Dashboard = () => {
       
     >
       {!isLoading ? blogList?.map((item, index) => (
-        <Card sx={{ width: "250px", m: 5, height: "35%",cursor:"pointer" }} key={index} >
+        <Card sx={{ width: "250px", m: "10px", height: "35%",cursor:"pointer" }} key={index} >
           <div onClick={()=>handleDetail(item.id,item.title,item.imageUrl,item.favorites,item.date,item.email,item.content)}>
           <img
             

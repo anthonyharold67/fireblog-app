@@ -46,9 +46,7 @@ FireBlog App
 ├── package.json
 └── package-lock.json
 ```
-```
 
-## Expected Outcome
 
 ![fireblog](fireblog.gif)
 
