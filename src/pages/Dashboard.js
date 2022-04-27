@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { BlogContext } from '../contexts/BlogContext';
+import { AuthContext } from '../contexts/AuthContext';
 import {useFetch }from "../helpers/functions";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -12,11 +13,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import Spinner from ".././assets/spinner.gif"
+import { toastWarnNotify } from '../helpers/ToastNotify';
 
 
 const Dashboard = () => {
   const {isLoading,blogList} = useFetch()
   const {setDetails,updateFavorites}= useContext(BlogContext)
+  const {currentUser} = useContext(AuthContext)
   const navigate = useNavigate()
   
   
@@ -25,8 +28,14 @@ const Dashboard = () => {
     navigate("/details/"+id)
   }
   const handleFavorites = (id,title,imageUrl,favorites,date,email,content) => {
-    console.log("mdsdsd")
-    updateFavorites({id,title,imageUrl,favorites,date,email,content})
+    
+    if(currentUser){
+      updateFavorites({id,title,imageUrl,favorites,date,email,content})
+    }
+    else{
+      toastWarnNotify("You need to login first!")
+      navigate("/login")
+    }
     
   }
   return (
@@ -40,17 +49,17 @@ const Dashboard = () => {
       
     >
       {!isLoading ? blogList?.map((item, index) => (
-        <Card sx={{ width: "250px", m: "10px", height: "35%",cursor:"pointer" }} key={index} >
+        <Card sx={{ width: "350px", m: "10px", minheight: "35%",cursor:"pointer" }} key={index} >
           <div onClick={()=>handleDetail(item.id,item.title,item.imageUrl,item.favorites,item.date,item.email,item.content)}>
           <img
             
             height="150"
-            width="35%"
-            style={{marginTop:"5px"}}
-            src={item?.imageUrl}
+            width="40%"
+            style={{marginTop:"5px",minHeight:"150px",minWidth:"40%",maxHeight:"150px",maxWidth:"40%",marginLeft:"auto",marginRight:"auto"}}
+            src={item?.imageUrl ? item.imageUrl : "https://www.w3schools.com/howto/img_avatar.png"}
             alt="img"
           />
-          <Typography sx={{backgroundColor: "#E7E6F5",m:0,mt:1,width:"100%"}}>
+          <Typography sx={{m:0,mt:1,width:"100%"}}>
                 <Typography gutterBottom variant="h5" component="div" sx={{textAlign:"center",color:"darkgreen"}}>
                   {item?.title.toUpperCase()}
                 </Typography>
@@ -78,7 +87,7 @@ const Dashboard = () => {
             </IconButton>
             <span>{item?.comments ?? "0"}</span>
         </Card>
-      )) : (<div width="100%" height="100%">
+      )) : (<div width="100%" height="100vh">
         <img src={Spinner} height="100vh" alt="loading..."/>
       </div>)}
     </Box>

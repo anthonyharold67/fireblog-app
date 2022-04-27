@@ -61,7 +61,7 @@ const Details = () => {
            alt="img"
            style={{marginTop:"15px"}}
          />
-         <Typography sx={{backgroundColor: "#E7E6F5",m:0,mt:1,width:"100%"}}>
+         <Typography sx={{m:0,mt:1,width:"100%"}}>
                <Typography gutterBottom variant="h5" component="div" sx={{textAlign:"center",color:"darkgreen"}}>
                  {details.title.toUpperCase()}
                </Typography>
